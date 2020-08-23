@@ -1,0 +1,9 @@
+kindle_reviews.json
+codesnips/
+*.zip
+*.csv
+glove.*.txt
+*.h5
+*.pkl
+.ipynb_checkpoints/
+
