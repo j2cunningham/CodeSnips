@@ -22,11 +22,11 @@ import pandas as pd
 #         return clf.predict(input)
 
 
-app = Flask(__name__)
+application = Flask(__name__)
 
 # clf = pickle.load(open('model location', 'rb'))
 
-@app.route('/', methods=['POST'])
+@application.route('/', methods=['POST'])
 def index():
     data = request.get_json()
     print(f'----------------{data}')
@@ -54,10 +54,10 @@ def index():
     # return flask.Response(response=result, status=200, mimetype='text/csv')
     return data
 
-@app.route('/health',methods=['GET'])
+@application.route('/health',methods=['GET'])
 def health():
     js = json.dumps({'status':'healthy'})
-    resp = Respone(js, status=200, mimetype='application/json')
+    resp = Response(js, status=200, mimetype='application/json')
     return resp 
 
 if __name__ == '__main__':

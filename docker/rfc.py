@@ -1,7 +1,7 @@
 class demoRFF:
-    def __init__(self, name, age):
-        self.name = name
-        self.age = age
+    def __init__(self, hp1, hp2):
+        self.hp1 = hp1
+        self.hp2 = hp2
         
-    def greet(self):
-        print(f'Hello {self.name}, aged {self.age} years')
+    def predict(self,x0,x1):
+        return 123.789

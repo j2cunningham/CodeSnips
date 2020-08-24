@@ -5,6 +5,7 @@ FROM python:3.7
 
 RUN apt-get update && apt-get install net-tools -y \
     curl \
+    vim \
 && rm -rf /var/lib/apt/lists/*
 
 RUN mkdir /app
