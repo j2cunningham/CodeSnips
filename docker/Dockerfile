@@ -11,7 +11,7 @@ RUN mkdir /app
 
 # COPY requirements.txt /app
 # COPY api.py /app
-COPY requirements.txt api.py run.sh /app
+COPY requirements.txt api.py run.sh wsgi.py /app/
 
 WORKDIR /app
 
