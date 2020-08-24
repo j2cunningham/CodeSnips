@@ -6,4 +6,5 @@ glove.*.txt
 *.h5
 *.pkl
 .ipynb_checkpoints/
-
+*.png
+*.save

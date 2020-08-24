@@ -1,16 +1,17 @@
 # app.py - a minimal flask api using flask_restful
-from flask import Flask
-from flask_restful import Resource, Api
-
+import json
+from flask import Flask, jsonify
 app = Flask(__name__)
-api = Api(app)
 
-class HelloWorld(Resource):
-    def get(self):
-        return {'hello': 'world'}
+@app.route('/', methods=['POST'])
+def index():
+    data = request.get_json()
+    print(f'----------------{data}')
+    return jsonify({'name': 'alice',
+                    'email': 'alice@outlook.com'})
 
-api.add_resource(HelloWorld, '/')
+app.run()
 
 if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0')
+    app.run(port=5001)
 
