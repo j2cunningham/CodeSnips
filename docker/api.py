@@ -29,7 +29,7 @@ application = Flask(__name__)
 @application.route('/', methods=['POST'])
 def index():
     data = request.get_json()
-    print(f'----------------{data}')
+    
 
     # if flask.request.content_type.startswith('text/csv'):
     #     data = flask.request.data.decode('utf-8')
@@ -61,5 +61,5 @@ def health():
     return resp 
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0')
+    application.run(host='0.0.0.0')
 

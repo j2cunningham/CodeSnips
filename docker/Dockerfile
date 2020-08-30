@@ -1,7 +1,9 @@
 # docker run -it --entrypoint /bin/bash <image>
 # docker run --rm -p 5001:5001 snip:1.0
 
-FROM python:3.7
+FROM python:3
+
+# ENV HOME=/var/www
 
 RUN apt-get update && apt-get install net-tools -y \
     curl \
@@ -19,7 +21,7 @@ WORKDIR /app
 RUN chmod 770 run.sh
 
 RUN pip install -r requirements.txt
-EXPOSE 5001
+
 
 
 CMD ["bash","run.sh"]

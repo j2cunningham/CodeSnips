@@ -8,3 +8,4 @@ glove.*.txt
 .ipynb_checkpoints/
 *.png
 *.save
+__pycache__

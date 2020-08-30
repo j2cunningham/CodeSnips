@@ -1,0 +1,33 @@
+version: '3.1'
+
+services:
+  nginx:
+    image: nginx:latest
+    container_name: nginx
+    volumes:
+      - ./default.conf:/etc/nginx/conf.d/default.conf
+    ports:
+      - 8000:8000
+    networks:
+      - my-network
+    depends_on:
+      - flask
+  flask:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    image: flask:0.0.1
+    container_name: flask
+    # command: gunicorn --bind 0.0.0.0:8000 --workers 4 "run:app"
+    # command:  flask run --host=0.0.0.0
+    volumes:
+      - ./:/code/
+    environment:
+        - FLASK_APP=/code/api.py
+    networks:
+      my-network:
+        aliases:
+          - flask-app
+
+networks:
+  my-network:
