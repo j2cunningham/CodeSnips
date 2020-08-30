@@ -1,4 +1,7 @@
 # app.py - a minimal flask api using flask_restful
+
+# curl --header "Content-Type: application/json"   --request POST   --data '{"username":"xyz","password":"xyz"}'   http://localhost:8000/
+
 import json
 from flask import Flask, jsonify, json, Response, request
 import pickle
