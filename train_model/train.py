@@ -16,13 +16,14 @@ from sklearn import metrics
 import re
 
 
+
 def readFile():
-    users_df = pd.read_csv('takehome_users.csv',encoding = 'latin-1')
-    users_eng_df = pd.read_csv('takehome_user_engagement.csv',encoding = 'latin-1')
+    users_df = pd.read_csv('../takehome_users.csv',encoding = 'latin-1')
+    users_eng_df = pd.read_csv('../takehome_user_engagement.csv',encoding = 'latin-1')
+    return users_df, users_eng_df
 
 
-def transform_users_df(users_df):
-
+def transform_users_df(users_df, user_Ids):
     users_df['IsInvited'] = users_df['invited_by_user_id'].apply(lambda x: 1 if x.is_integer() else 0)
     users_df['IsAdoptedUser'] = users_df['object_id'].apply(lambda x: 1 if (x in user_Ids) else 0)
     users_df['domain'] = users_df['email'].str.extract(r'(@[\w.]+)')
@@ -42,7 +43,6 @@ def transform_users_eng_df(users_eng_df):
     users_eng_df['shifted']=pd.to_datetime(users_eng_df['shifted'])
     users_eng_df['time_diff']=users_eng_df['time_stamp']-users_eng_df['shifted']
     users_eng_df = users_eng_df[users_eng_df['time_diff']<datetime.timedelta(days=3)]
-
     return users_eng_df
 
 def get_user_ids(users_eng_df):
@@ -50,8 +50,8 @@ def get_user_ids(users_eng_df):
     return user_Ids
 
 def setX(users_df):
-    X = users_df.drop(IsAdoptedUser, inplace=True)
-    return X
+    users_df.drop('IsAdoptedUser', axis=1, inplace=True)
+    return users_df
 
 def sety(users_df):
     y =  users_df['IsAdoptedUser']
@@ -61,58 +61,81 @@ def balance(X,y):
     # https://www.geeksforgeeks.org/g-fact-41-multiple-return-values-in-python/
     sm = SMOTE(random_state=42)
     X_res, y_res = sm.fit_resample(X, y)
-    return X_res, y_res;
+    return X_res, y_res
+
+def splitUp(X,y):
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.3, random_state=42)
+    return X_train, X_test, y_train, y_test
 
 
-X_train, X_test, y_train, y_test = train_test_split(X_res, y_res, test_size = 0.3, random_state=42)
+# def trainAndTunel():
+#     num_folds=3
+#     n_iter=50
+#     random_state = 42
 
-num_folds=3
-n_iter=50
-random_state = 42
+#     kf = KFold(n_splits=num_folds, random_state=random_state, shuffle=True)
 
-kf = KFold(n_splits=num_folds, random_state=random_state, shuffle=True)
+#     def objective_func(params, random_state=random_state, cv=kf, x_train=X_train, y_train=y_train):
+#         # the function gets a set of variable parameters in "param"
+#         params = {'n_estimators': int(params['n_estimators']), 
+#                 'max_depth': int(params['max_depth']),
+#                 'max_features': int(params['max_features']),
+#                 'min_samples_leaf': int(params['min_samples_leaf']),
+#                 'min_samples_split': int(params['min_samples_split'])}
+        
+#         # we use this params to create a classifier
+#         clf = RandomForestClassifier(random_state=random_state, **params)
+        
+#         # and then conduct the cross validation with the same folds as before
+#         score = -cross_val_score(clf, x_train, y_train, cv=cv, scoring="precision", n_jobs=-1).mean()
 
-def objective_func(params, random_state=random_state, cv=kf, x_train=X_train, y_train=y_train):
-    # the function gets a set of variable parameters in "param"
-    params = {'n_estimators': int(params['n_estimators']), 
-              'max_depth': int(params['max_depth']),
-              'max_features': int(params['max_features']),
-              'min_samples_leaf': int(params['min_samples_leaf']),
-             'min_samples_split': int(params['min_samples_split'])}
-    
-    # we use this params to create a classifier
-    clf = RandomForestClassifier(random_state=random_state, **params)
-    
-    # and then conduct the cross validation with the same folds as before
-    score = -cross_val_score(clf, x_train, y_train, cv=cv, scoring="precision", n_jobs=-1).mean()
-
-    return score
-
-
-# possible values of parameters
-space={'n_estimators': hp.quniform('n_estimators', 100, 5000, 1),
-       'max_depth' : hp.quniform('max_depth', 2, 20, 1),
-       'min_samples_split': hp.quniform('min_samples_split', 1, 15, 1),
-       'max_features': hp.quniform('max_features', 2, 5, 1),
-       'min_samples_leaf': hp.quniform('min_samples_leaf', 2, 10, 1)
-      }
-
-# trials will contain logging information
-trials = Trials()
-
-best=fmin(fn=objective_func, # function to optimize
-          space=space, 
-          algo=tpe.suggest, # optimization algorithm, hyperotp will select its parameters automatically
-          max_evals=n_iter, # maximum number of iterations
-          trials=trials, # logging
-          rstate=np.random.RandomState(random_state) # fixing random state for the reproducibility
-
-model_grid = RandomForestClassifier(random_state=random_state, n_estimators=int(best['n_estimators']),
-                              min_samples_leaf=int(best['min_samples_leaf']),
-                              max_features=int(best['max_features']),
-                      max_depth=int(best['max_depth']),min_samples_split=int(best['min_samples_split']))
-model_grid.fit(X_train,y_train)
+#         return score
 
 
-pickle.dump(model_grid,open('rff.pkl','wb'))
+#     # possible values of parameters
+#     space={'n_estimators': hp.quniform('n_estimators', 100, 5000, 1),
+#         'max_depth' : hp.quniform('max_depth', 2, 20, 1),
+#         'min_samples_split': hp.quniform('min_samples_split', 1, 15, 1),
+#         'max_features': hp.quniform('max_features', 2, 5, 1),
+#         'min_samples_leaf': hp.quniform('min_samples_leaf', 2, 10, 1)
+#         }
+
+#     # trials will contain logging information
+#     trials = Trials()
+
+#     best=fmin(fn=objective_func, # function to optimize
+#             space=space, 
+#             algo=tpe.suggest, # optimization algorithm, hyperotp will select its parameters automatically
+#             max_evals=n_iter, # maximum number of iterations
+#             trials=trials, # logging
+#             rstate=np.random.RandomState(random_state) # fixing random state for the reproducibility
+
+#     model_grid = RandomForestClassifier(random_state=random_state, n_estimators=int(best['n_estimators']),
+#                                 min_samples_leaf=int(best['min_samples_leaf']),
+#                                 max_features=int(best['max_features']),
+#                         max_depth=int(best['max_depth']),min_samples_split=int(best['min_samples_split']))
+#                         model_grid.fit(X_train,y_train)
+# return model_grid
+
+
+def pklDump():
+    pickle.dump(model_grid,open('rff.pkl','wb'))
 # pickle.load( open( "rff.pkl", "rb" ) )
+
+
+def main():
+    files = readFile()
+    users_df = files[0]
+    users_eng_df = files[1]
+    user_Ids = get_user_ids(users_eng_df)
+    users_df_transformed = transform_users_df(users_df,user_Ids)
+    users_eng_df_transformed = transform_users_eng_df(users_eng_df)
+    y = sety(users_df_transformed)
+    X = setX(users_df_transformed)
+    balanced_data = balance(X,y)
+    split_data = splitUp(balanced_data[0],balanced_data[1])
+    print(len(split_data))
+
+    
+if __name__ == '__main__':
+    main()
