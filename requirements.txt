@@ -12,6 +12,7 @@ chardet==3.0.4
 chart-studio==1.1.0
 click==7.1.2
 cloudpickle==1.5.0
+coverage==5.2.1
 cvxpy==1.1.4
 cycler==0.10.0
 decorator==4.4.2
@@ -32,6 +33,7 @@ idna==2.10
 imbalanced-learn==0.7.0
 imblearn==0.0
 importlib-metadata==1.7.0
+iniconfig==1.0.1
 ipykernel==5.3.4
 ipython==7.16.1
 ipython-genutils==0.2.0
@@ -53,6 +55,7 @@ Markdown==3.2.2
 MarkupSafe==1.1.1
 matplotlib==3.3.1
 mistune==0.8.4
+more-itertools==8.5.0
 nbconvert==5.6.1
 nbformat==5.0.7
 networkx==2.4
@@ -70,10 +73,12 @@ pexpect==4.8.0
 pickleshare==0.7.5
 Pillow==7.2.0
 plotly==4.9.0
+pluggy==0.13.1
 prometheus-client==0.8.0
 prompt-toolkit==3.0.6
 protobuf==3.13.0
 ptyprocess==0.6.0
+py==1.9.0
 pyasn1==0.4.8
 pyasn1-modules==0.2.8
 pycparser==2.20
@@ -81,6 +86,8 @@ pydot==1.4.1
 Pygments==2.6.1
 pyparsing==2.4.7
 pyrsistent==0.16.0
+pytest==6.0.1
+pytest-cov==2.10.1
 python-dateutil==2.8.1
 pytz==2020.1
 PyYAML==5.3.1
@@ -106,6 +113,7 @@ termcolor==1.1.0
 terminado==0.8.3
 testpath==0.4.4
 threadpoolctl==2.1.0
+toml==0.10.1
 tornado==6.0.4
 tqdm==4.48.2
 traitlets==4.3.3
