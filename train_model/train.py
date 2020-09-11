@@ -14,7 +14,13 @@ from sklearn.metrics import roc_curve, confusion_matrix, classification_report
 from sklearn.model_selection import train_test_split, GridSearchCV
 from sklearn import metrics
 import re
+from datetime import datetime
 
+now = datetime.now()
+
+current_time = now.strftime("%H:%M:%S")
+
+print("Current Time =", current_time)
 
 
 def readFile():
