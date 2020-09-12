@@ -16,14 +16,14 @@ Vader
 Pytest - Coverage, Fixtures  
 
 ### Techniques
-Notebook for training
-Auto Reload a notebook
-%%Time and current time
-Timeshift for
-sys.path for fixing imports
+Notebook for training  
+Auto Reload a notebook  
+%%Time and current time  
+Timeshift  
+sys.path for fixing imports  
 
 ### Docker
-Dockerfile to deploy
-NGINX
-Gunicorn
-Flask
+Dockerfile to deploy  
+NGINX  
+Gunicorn  
+Flask  
