@@ -9,3 +9,4 @@ glove.*.txt
 *.png
 *.save
 __pycache__
+.coverage
