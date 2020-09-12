@@ -13,7 +13,7 @@ Hyperopt in both a notebook and a py file
 FancyImpute
 SMOTE
 Vader
-Pytest - Coverage, (Coming soon Parameters and Fixtures)
+Pytest - Coverage, Fixtures
 
 ### Techniques
 Notebook for training
