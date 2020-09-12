@@ -19,7 +19,7 @@ Pytest - Coverage, Fixtures
 Notebook for training  
 Auto Reload a notebook  
 %%Time and current time  
-Timeshift so that we can find users who have visited site > 3 times in time period
+Timeshift so that we can find users who have visited site > 3 times in time period  
 sys.path for fixing imports  
 
 ### Docker
