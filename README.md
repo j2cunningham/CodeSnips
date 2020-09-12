@@ -9,11 +9,11 @@ pytest --cov=train_model -p no:warnings
 ### Snippets of Interest
 
 ### Python Packages
-Hyperopt in both a notebook and a py file
-FancyImpute
-SMOTE
-Vader
-Pytest - Coverage, Fixtures
+Hyperopt in both a notebook and a py file  
+FancyImpute  
+SMOTE  
+Vader  
+Pytest - Coverage, Fixtures  
 
 ### Techniques
 Notebook for training
