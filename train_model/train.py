@@ -14,7 +14,7 @@ from sklearn.metrics import roc_curve, confusion_matrix, classification_report
 from sklearn.model_selection import train_test_split, GridSearchCV
 from sklearn import metrics
 import re
-from datetime import datetime
+from datetime import datetime, timedelta
 
 now = datetime.now()
 
@@ -48,7 +48,7 @@ def transform_users_eng_df(users_eng_df):
     users_eng_df['time_stamp']= pd.to_datetime(users_eng_df['time_stamp'])
     users_eng_df['shifted']=pd.to_datetime(users_eng_df['shifted'])
     users_eng_df['time_diff']=users_eng_df['time_stamp']-users_eng_df['shifted']
-    users_eng_df = users_eng_df[users_eng_df['time_diff']<datetime.timedelta(days=3)]
+    users_eng_df = users_eng_df[users_eng_df['time_diff']<timedelta(days=3)]
     return users_eng_df
 
 def get_user_ids(users_eng_df):
@@ -118,10 +118,9 @@ def trainAndTune(X_train,y_train):
             rstate=np.random.RandomState(random_state)) # fixing random state for the reproducibilit
             
     hyperparams = space_eval(space, best)
-    print(hyperparams)
     return best
 
-def model_fit(best):
+def model_fit(best,X_train,y_train):
     model_grid = RandomForestClassifier(random_state=42, n_estimators=int(best['n_estimators']),
             min_samples_leaf=int(best['min_samples_leaf']),
             max_features=int(best['max_features']),
@@ -131,6 +130,7 @@ def model_fit(best):
     return model_grid
 
 def pklDump(model):
+    print('dump model')
     pickle.dump(model,open('rff.pkl','wb'))
 # pickle.load( open( "rff.pkl", "rb" ) )
 
@@ -147,7 +147,7 @@ def main():
     balanced_data = balance(X,y)
     split_data = splitUp(balanced_data[0],balanced_data[1])
     tunedModel = trainAndTune(split_data[0],split_data[2])
-    trainedModel = model_fit(tunedModel)
+    trainedModel = model_fit(tunedModel,split_data[0],split_data[2])
     pklDump(trainedModel)
 
 if __name__ == '__main__':
