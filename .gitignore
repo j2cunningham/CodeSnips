@@ -1,3 +1,7 @@
+*.model
+*.part
+glove/
+data/
 kindle_reviews.json
 codesnips/
 *.zip
