@@ -27,3 +27,7 @@ Dockerfile to deploy
 NGINX  
 Gunicorn  
 Flask  
+
+TODO:
+
+http://blog.davidkaleko.com/feature-engineering-cyclical-features.html
