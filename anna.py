@@ -109,20 +109,7 @@ while encounter == True:
     # and that we need to back away. Also, print out that we need to photograph the sighting at its location. In the else statement (i.e, the sighting is 
     # neither aggressive nor endangered) print out that we need to photograph the ultra rare sighting at its location. In all of these blocks, make use of 
     # the actions list and the variables sighting and location in your printouts.
-    # for bird in rarebirds:
-    #     trait = rarebirds[bird]['Aggressive']
-    #     if sighting == True:
-    #         print("It's aggressive, we need to " + actions[0] + "and" + actions[1])
-    #         print("We need to photograph the " + sighting + " " + location + ".")
-    #         encounter = False
-    #     elif trait == 'Endangered':
-    #         print("It's endangered, so we need to " + actions[0])
-    #         print("We need to photograph the " + sighting + " " + location + ".")
-    #         encounter = False
-    #     else:
-    #         print("We need to photograph this ultra rare " + sighting + " " + location + ".")
-    #         encounter = False
-
+    
     if encounter == False:
         trait = rarebirds[sighting]['Aggressive']
         if trait:
