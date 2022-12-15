@@ -1,0 +1,26 @@
+Model Metrics
+
+1. Model Features
+The final model had a total of 1010 features, including:
+
+10 Features Engineered from Comment Data
+Score, FlairCount, EmojiCount, CommentLength, CommentCharacters, AvgWordLength, Lexicon Count, Sentence Count, Read Ease, Syllable Count
+
+1000 most prevalent bigrams
+Ex. Counts_youtube com, counts www reddit
+
+
+2. Parameters and hyperparameters 
+n_estimators=100
+learning_rate - .25
+max_features=1000
+max_depth = 10
+min_samples_split=50
+
+
+3. Performance Metrics: Gradient Boosting Classifer
+
+ 	precision    recall  f1-score   support
+
+ 0       0.87      0.94      0.90      2093
+ 1       0.93      0.86      0.89      2048
