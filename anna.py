@@ -72,7 +72,6 @@ for key, value in codes.items():
     print(key + ": " + value)
 
 #Task 8: create a for loop to add an extra attribute, 'seen'
-#This is NOT right but it works?
 rarebirds['Gold-crested Toucan']['Seen'] = False
 rarebirds['Pearlescent Kingfisher']['Seen'] = False
 rarebirds['Four-metre Hummingbird']['Seen'] = False
