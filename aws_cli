@@ -1,0 +1,2 @@
+# !aws s3api get-object --bucket bucketname --key keyname/filname filenmaelocally.file
+ 
